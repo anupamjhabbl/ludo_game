@@ -4,12 +4,15 @@
 }
 
 .ludo{
-    width:700px;
-    height:700px;
+    width:98vw;
+    max-width:700px;
+    height:98vw;
+    max-height:700px;
     border:2px solid rgb(162, 162, 162);
     margin:auto;
     margin-top:80px;
     padding:50px;
+    box-sizing: border-box;
 }
 
 .edge{
@@ -28,20 +31,21 @@
 .color_box{
     width:38%;
     height:100%;
-    border:50px solid yellow;
+    border:40px solid yellow;
+    padding:10px;
     box-sizing: border-box;
 }
 
 .color_box_green{
-    border:50px solid green;
+    border:40px solid green;
 }
 
 .color_box_blue{
-    border:50px solid blue;
+    border:40px solid blue;
 }
 
 .color_box_red{
-    border:50px solid red;
+    border:40px solid red;
 }
 
 .box_group_vertical{
@@ -72,15 +76,15 @@
     margin:auto;
 }
 
-#nili_goti{
+.nili_goti{
     border:3px solid blue;
 }
 
-#hari_goti{
+.hari_goti{
     border:3px solid green;
 }
 
-#laal_goti{
+.laal_goti{
     border:3px solid red;
 }
 
@@ -149,26 +153,125 @@
 }
 
 .arrow{
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
 .yellow_arrow{
     background-image: url('yellow_arrow.png');
-    background-size: contain;
 }
 
 .green_arrow{
     background-image: url('green_arrow.png');
-    background-size: contain;
 }
 
 .red_arrow{
     background-image: url('red_arrow.png');
-    background-size: contain;
 }
 
 .blue_arrow{
     background-image: url('blue_arrow.png');
-    background-size: contain;
+}
+
+@media only screen and (max-width:850px){
+    .ludo{
+        padding:20px;
+    }
+
+    .color_box{
+        border-width: 30px;
+    }
+}
+
+@media only screen and (max-width:500px){
+    .color_box{
+        border-width:20px;
+    }
+
+    .goti{
+        width: 20px;
+        height:20px;
+    }
+
+    .vertical_box_group .single_box{
+        height:15.4%
+    }
+}
+
+.other_items{
+    width:300px;
+    position:absolute;
+    right:100px;
+    top:200px;
+}
+
+.chance{
+    width:300px;
+    height:120px;
+    text-align: center;
+    border:2px solid palegreen;
+    padding-top:20px;
+    margin:40px 0px;
+}
+
+.chance_goti{
+    width:35px;
+    height:35px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    margin:auto;
+    margin-top: 30px;
+}
+
+.done{
+    width:300px;
+    text-align: center;;
+}
+
+.icons{
+    display:flex;
+    justify-content: space-between;
+    margin:10px 0px;
+    border:2px solid rgb(164, 164, 164);
+    padding:5px;
+}
+
+.nili_icon{
+    background-color: blue;;
+    border:0px;
+}
+
+.peeli_icon{
+    background-color: yellow;
+    border:0px;
+}
+
+.hari_icon{
+    background-color: green;
+    border:0px;
+}
+
+.laal_icon{
+    background-color: red;
+    border:0px;
+}
+
+.done_track{
+    display:flex;
+    justify-content: space-between;
+    margin-bottom:40px;
+}
+
+.done_one_box{
+    width:25%;
+    border:2px solid rgb(152, 152, 152);
+    border-collapse: collapse;
+    height:180px;
+}
+
+@media only screen and (max-width:1600px){
+    .other_items{
+        position: static;
+        margin:auto;
+    }
 }
