@@ -1,0 +1,174 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+.ludo{
+    width:700px;
+    height:700px;
+    border:2px solid rgb(162, 162, 162);
+    margin:auto;
+    margin-top:80px;
+    padding:50px;
+}
+
+.edge{
+    width:100%;
+    height:38%;
+    border:2px solid rgb(162, 162, 162);
+    display:flex;
+}
+
+.middle{
+    height:24%;
+    width:100%;
+    display:flex;
+}
+
+.color_box{
+    width:38%;
+    height:100%;
+    border:50px solid yellow;
+    box-sizing: border-box;
+}
+
+.color_box_green{
+    border:50px solid green;
+}
+
+.color_box_blue{
+    border:50px solid blue;
+}
+
+.color_box_red{
+    border:50px solid red;
+}
+
+.box_group_vertical{
+    width:24%;
+    height:100%;
+    display:flex;
+}
+
+.two_goti_group{
+    display:flex;
+    height:50%;
+    width:100%;
+}
+
+.goti_outer{
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.goti{
+    width:40px;
+    height:40px;
+    border:3px solid yellow;
+    border-radius:50%;
+    margin:auto;
+}
+
+#nili_goti{
+    border:3px solid blue;
+}
+
+#hari_goti{
+    border:3px solid green;
+}
+
+#laal_goti{
+    border:3px solid red;
+}
+
+.vertical_box_group{
+    width:33%;
+    height:100%;
+    border:1px solid rgb(162, 162, 162);
+    border-collapse:collapse;
+    border-top:0px;
+}
+
+.single_box{
+    width:100%;
+    height:16%;
+    border:1px solid grey;
+    border-collapse: true;;
+}
+
+.horizontal_edge{
+    width:38%;
+    height:100%;
+}
+
+.horizontal_middle{
+    width:24%;
+    height:100%;
+    border:2px solid grey;
+}
+
+.horizontal_box_group{
+    display:flex;
+    width:100%;
+    height:33%;
+    border-left:1px solid grey;
+    border-right:1px solid grey;
+}
+
+
+.single_box_horizontal{
+    width:16%;
+    height:100%;
+    border:1px solid grey;
+    border-collapse: true;;
+}
+
+.horizontal_middle{
+    background-image: url('horizontal_middle.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.green_box{
+    background-color: green;
+}
+
+.blue_box{
+    background-color: blue;;
+}
+
+.yellow_box{
+    background-color: yellow;
+}
+
+.red_box{
+    background-color: red;;
+}
+
+.arrow{
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.yellow_arrow{
+    background-image: url('yellow_arrow.png');
+    background-size: contain;
+}
+
+.green_arrow{
+    background-image: url('green_arrow.png');
+    background-size: contain;
+}
+
+.red_arrow{
+    background-image: url('red_arrow.png');
+    background-size: contain;
+}
+
+.blue_arrow{
+    background-image: url('blue_arrow.png');
+    background-size: contain;
+}
