@@ -74,6 +74,9 @@
     border:3px solid yellow;
     border-radius:50%;
     margin:auto;
+    display:flex;
+    justify-content: center;
+    align-items:center;
 }
 
 .nili_goti{
@@ -221,6 +224,9 @@
     border: 2px solid grey;
     margin:auto;
     margin-top: 30px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
 }
 
 .done{
@@ -269,9 +275,71 @@
     height:180px;
 }
 
+
+.dice{
+    width:100px;
+    height:100px;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    border:2px solid rgb(163, 163, 163);
+    border-radius: 20px;
+    margin:auto;
+    margin-top:15px;
+}
+
+#dice_value{
+    font-size: x-large;
+    font-weight:500;
+}
+
+#roll_the_dice{
+    width:80px;
+    height:30px;
+    border-radius:20px;
+    border:2px solid grey;
+    display:block;
+    margin:10px auto;
+}
+
+
 @media only screen and (max-width:1600px){
     .other_items{
         position: static;
         margin:auto;
     }
 }
+
+/* js css */
+.js_yellow_goti{
+    width:70%;
+    height:70%;
+    border-radius:50%;
+    background-color: yellow;
+    box-shadow: 1px 1px 5px rgb(245, 245, 133);
+}
+
+.js_green_goti{
+    width:70%;
+    height:70%;
+    border-radius:50%;
+    background-color: green;
+    box-shadow: 1px 1px 5px rgb(147, 245, 147);
+}
+
+.js_blue_goti{
+    width:70%;
+    height:70%;
+    border-radius:50%;
+    background-color: blue;
+    box-shadow: 1px 1px 5px rgb(138, 181, 255);
+}
+
+.js_red_goti{
+    width:70%;
+    height:70%;
+    border-radius:50%;
+    background-color: red;
+    box-shadow: 1px 1px 5px rgb(245, 147, 147);
+}
+
