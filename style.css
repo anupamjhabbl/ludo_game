@@ -340,6 +340,21 @@
     height:70%;
     border-radius:50%;
     background-color: red;
-    box-shadow: 1px 1px 5px rgb(245, 147, 147);
 }
 
+@keyframes blink_the_goti {
+    from{
+        width:50%;
+        height:50%;
+    }
+    to {
+        width:85%;
+        height:85%;
+    }
+  }
+
+.blink{
+    animation-name: blink_the_goti;
+    animation-duration: 300ms;
+    animation-iteration-count: infinite;
+}
