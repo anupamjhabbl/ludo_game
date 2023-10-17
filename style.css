@@ -79,15 +79,15 @@
     align-items:center;
 }
 
-.nili_goti{
+.blue_goti{
     border:3px solid blue;
 }
 
-.hari_goti{
+.green_goti{
     border:3px solid green;
 }
 
-.laal_goti{
+.red_goti{
     border:3px solid red;
 }
 
@@ -317,6 +317,10 @@
     border-radius:50%;
     background-color: yellow;
     box-shadow: 1px 1px 5px rgb(245, 245, 133);
+    display:flex;
+    align-items:center;
+    color:rgb(87, 87, 87);
+    justify-content: center;
 }
 
 .js_green_goti{
@@ -325,6 +329,10 @@
     border-radius:50%;
     background-color: green;
     box-shadow: 1px 1px 5px rgb(147, 245, 147);
+    display:flex;
+    align-items:center;
+    color:white;
+    justify-content: center;
 }
 
 .js_blue_goti{
@@ -333,6 +341,10 @@
     border-radius:50%;
     background-color: blue;
     box-shadow: 1px 1px 5px rgb(138, 181, 255);
+    display:flex;
+    align-items:center;
+    color:white;
+    justify-content: center;
 }
 
 .js_red_goti{
@@ -340,6 +352,10 @@
     height:70%;
     border-radius:50%;
     background-color: red;
+    display:flex;
+    align-items:center;
+    color:white;
+    justify-content: center;
 }
 
 @keyframes blink_the_goti {
