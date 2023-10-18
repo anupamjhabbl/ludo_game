@@ -104,6 +104,9 @@
     height:16%;
     border:1px solid grey;
     border-collapse: true;;
+    display:flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .horizontal_edge{
