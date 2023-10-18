@@ -67,12 +67,10 @@ let canRoll = true;
 
 // function for doing something onclick
 let doOnClick = (e) => {
-    console.log(e.target);
     userChoice = e.target.innerHTML;
     if (!(userChoice=="1" || userChoice=="2" || userChoice=="3" || userChoice=="4")){
         userChoice = e.target.children[0].innerHTML;
     }
-    console.log(userChoice);
     haveUserChoosed = true;
 }
 // making gotis clickable
@@ -200,7 +198,6 @@ function isAnyOut(chance){
 // a function returning promise
 let choosedGoti = () =>  new Promise((resolve, reject) => {
     const check = () => {
-        console.log("hellow oror");
         if (haveUserChoosed){
             resolve(userChoice);
         }
@@ -219,49 +216,182 @@ const move_the_goti = async (uservalue, chance) => {
     }
 
     let k = await choosedGoti();
-    console.log(k);
     haveUserChoosed = false;
+    let m;
     while(!active_status.get(`id_${color_map.get(chance)}_goti${k}`)){
-        console.log("something is wrong");
         k = await choosedGoti();
     }
 
     let prePosition = gotis_position_array_map[color_map.get(chance)][k-1];
+    let goal_entered = false;
     if (prePosition==-1 && uservalue==6){
-        console.log(firstValue.get(color_map.get(chance)));
         gotis_position_array_map[color_map.get(chance)][k-1] = firstValue.get(color_map.get(chance));
     }
     else{
-        gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
-        console.log(gotis_position_array_map[color_map.get(chance)]);
+        let previous_value = gotis_position_array_map[color_map.get(chance)][k-1];
+        m = gotis_position_array_map[color_map.get(chance)][k-1] + uservalue;
+        if (chance==0 && m>38 && previous_value<=38){
+            if (m==44){
+                console.log("final");
+            }
+            if (m>44){
+                console.log("fas gaya");
+            }
+            else{
+                m = m - 38;
+                goal_entered = true;
+                gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+            }
+        }
+        else if(chance==1 && m>51){
+            if (m==57){
+                console.log("final");
+            }
+            if (m>57){
+                console.log("fas gaya");
+            }
+            else{
+                m = m - 51;
+                goal_entered = true;
+                gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+            }
+        }
+        else if(chance==2 && m>12 && previous_value<=12){
+            if (m==18){
+                console.log("final");
+            }
+            if (m>18){
+                console.log("fas gaya");
+            }
+            else{
+                m = m - 12;
+                goal_entered = true;
+                gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+            }
+        }
+        else if(chance==3 && m>25 && previous_value<=25){
+            if (m==31){
+                console.log("final");
+            }
+            if (m>31){
+                console.log("fas gaya");
+            }
+            else{
+                m = m - 25;
+                goal_entered = true;
+                gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+            }
+        }
+        else if (m>52){
+            m = m - 52;
+            gotis_position_array_map[color_map.get(chance)][k-1] = m;
+        }
+        else{
+            gotis_position_array_map[color_map.get(chance)][k-1] = m;
+        }
     }
     if (prePosition==-1){
         let gotis = document.getElementsByClassName(`${color_map.get(chance)}_goti`);
-        let preElement = gotis[k-1].innerHTML;
+        let preElement = gotis[k-1].children[0];
         gotis[k-1].innerHTML = '';
-        document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML = preElement;
-        document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
-            doOnClick(e);
+        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){
+            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className){
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                    doOnClick(e);
+                }
+            }
+            else{
+                let gotis_in_next = document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children;
+                for (let i=0;i<gotis_in_next.length;i++){
+                    let id_of_element = gotis_in_next[i].getAttribute("id");
+                    let goti_no = id_of_element[id_of_element.length-1];
+                    let color = id_of_element.substring(3,id_of_element.length-6);
+                    document.getElementsByClassName(`${color}_goti`)[goti_no-1].appendChild(gotis_in_next[i]);
+                    gotis_position_array_map[color][goti_no-1] = -1;
+                }
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML = '';
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                    doOnClick(e);
+                }
+            }
+        }
+        else{
+            document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+            document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                doOnClick(e);
+            }
+        }
+    }
+    else if(goal_entered==false){
+        let preElement = document.getElementById(`g${prePosition}`).children[0];
+        let i = 0;
+        if (document.getElementById(`g${prePosition}`).children.length>1){
+            while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                i++;
+            }
+            preElement = document.getElementById(`g${prePosition}`).children[i];
+        }
+        document.getElementById(`g${prePosition}`).removeChild(preElement);
+        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){
+            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className){
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                    doOnClick(e);
+                }
+            }
+            else{
+                let gotis_in_next = document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children;
+                for (let i=0;i<gotis_in_next.length;i++){
+                    let id_of_element = gotis_in_next[i].getAttribute("id");
+                    let goti_no = id_of_element[id_of_element.length-1];
+                    let color = id_of_element.substring(3,id_of_element.length-6);
+                    document.getElementsByClassName(`${color}_goti`)[goti_no-1].appendChild(gotis_in_next[i]);
+                    gotis_position_array_map[color][goti_no-1] = -1;
+                }
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML = '';
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+                document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                    doOnClick(e);
+                }
+            }
+        }
+        else{
+            document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
+            document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
+                doOnClick(e);
+            }
         }
     }
     else{
-        let preElement = document.getElementById(`g${prePosition}`).innerHTML;
-        document.getElementById(`g${prePosition}`).innerHTML = '';
-        document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML =  preElement;
-        document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
-            doOnClick(e);
+        let preElement = document.getElementById(`g${prePosition}`).children[0];
+        let i = 0;
+        if (document.getElementById(`g${prePosition}`).children.length>1){
+            while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                i++;
+            }
+            preElement = document.getElementById(`g${prePosition}`).children[i];
         }
+        document.getElementById(`g${prePosition}`).removeChild(preElement);
+        if (document.getElementById(`${color_map.get(chance)}_goal${m}`).innerHTML != ''){
+            if (document.getElementById(`${color_map.get(chance)}_goal${m}`).children[0].className == preElement.className){
+                document.getElementById(`${color_map.get(chance)}_goal${m}`).appendChild(preElement);
+                document.getElementById(`${color_map.get(chance)}_goal${m}`).onclick = (e) => {
+                    doOnClick(e);
+                }
+            }
+        }
+        else{
+            document.getElementById(`${color_map.get(chance)}_goal${m}`).appendChild(preElement);
+            document.getElementById(`${color_map.get(chance)}_goal${m}`).onclick = (e) => {
+                doOnClick(e);
+            }
+        }
+        goal_entered = false;
     }
 
     return new Promise((resolve) => {
         resolve("done");
     })
 }
-
-{/* <div class="js_blue_goti choosableByClick blink" id="id_blue_goti4">4</div> script.js:70:13
-hellow oror script.js:187:17
-<div class="js_blue_goti choosableByClick blink" id="id_blue_goti4">4</div> script.js:206:13
-something is wrong */}
-
-
-
