@@ -137,7 +137,7 @@
 }
 
 .horizontal_middle{
-    background-image: url('horizontal_middle.png');
+    background-image: url('./images/horizontal_middle.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -164,19 +164,19 @@
 }
 
 .yellow_arrow{
-    background-image: url('yellow_arrow.png');
+    background-image: url('./images/yellow_arrow.png');
 }
 
 .green_arrow{
-    background-image: url('green_arrow.png');
+    background-image: url('./images/green_arrow.png');
 }
 
 .red_arrow{
-    background-image: url('red_arrow.png');
+    background-image: url('./images/red_arrow.png');
 }
 
 .blue_arrow{
-    background-image: url('blue_arrow.png');
+    background-image: url('./images/blue_arrow.png');
 }
 
 @media only screen and (max-width:850px){
