@@ -264,6 +264,29 @@ let choosedGoti = () =>  new Promise((resolve, reject) => {
     check();
 })
 
+// check other goti is availaible
+function checkAvailaible(uservalue, chance){
+    let counter = 0;
+    if (uservalue==6){
+        for (let i=1;i<=4;i++){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]==-2){
+
+            }
+            else{
+                counter += 1;
+            }
+        }
+    }
+    else{
+        for (let i=1;i<=4;i++){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]>=0){
+                counter += 1;
+            }
+        }
+    }
+    return counter;
+}
+
 // find the Loser
 function findTheLoser() {
     if (goaled_all_four.get(user1)==-1){

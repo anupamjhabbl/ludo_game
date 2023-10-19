@@ -346,7 +346,6 @@
 .js_blue_goti{
     width:70%;
     height:70%;
-
     margin:auto;
     margin-top:5px;
     border-radius:50%;
@@ -382,12 +381,10 @@
 
 @keyframes blink_the_goti {
     from{
-        margin-top:5px;
         width:50%;
         height:50%;
     }
     to {
-        margin-top:3px;
         width:80%;
         height:80%;
     }
