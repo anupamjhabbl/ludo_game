@@ -73,6 +73,16 @@ let goalStatus =  new Map([
     ["goal_blue",[false, false, false, false]]
 ])
 
+let user1, user2, user3, user4;
+let user = new Map([
+    ["red",user1],
+    ["blue",user2],
+    ["yellow",user3],
+    ["green",user4]
+])
+let winner1, winner2, winner3, loser;
+winner1 = winner2 = winner3 = loser = -1;
+
 
 // function for doing something onclick
 let doOnClick = (e) => {
@@ -152,7 +162,8 @@ roll_button.onclick = async () => {
 
 
 
-let blink_the_gotis = async (uservalue, chance) => {
+async function blink_the_gotis(uservalue, chance){
+    let counter = 0;
     if (uservalue==6){
         for (let i=1;i<=4;i++){
             if (gotis_position_array_map[color_map.get(chance)][i-1]==-2){
@@ -161,16 +172,21 @@ let blink_the_gotis = async (uservalue, chance) => {
             else{
                 active_status.set(`id_${color_map.get(chance)}_goti${i}`,1);
                 document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className += " blink";
+                counter = 1;
             }
         }
     }
     else{
         for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1 && gotis_position_array_map[color_map.get(chance)][i-1]==-2){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]>=0){
                 active_status.set(`id_${color_map.get(chance)}_goti${i}`,1);
                 document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className += " blink";
+                counter = 1;
             }
         }
+    }
+    if (counter==0){
+        return ;
     }
 
     await move_the_goti(uservalue, chance);
@@ -189,7 +205,7 @@ let blink_the_gotis = async (uservalue, chance) => {
     }
     else{
         for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1 && gotis_position_array_map[color_map.get(chance)][i-1]==-2){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]>=0){
                 active_status.set(`id_${color_map.get(chance)}_goti${i}`,0);
                 let k = document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className;
                 document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className = k.substring(0,k.length-6);
@@ -226,6 +242,7 @@ let choosedGoti = () =>  new Promise((resolve, reject) => {
     }
     check();
 })
+
 
 // function to move the goti
 async function move_the_goti(uservalue, chance){
@@ -381,6 +398,21 @@ async function move_the_goti(uservalue, chance){
             preElement.className = k.substring(0,k.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+            if (document.getElementById('done_${color_map.get(chance)}').children.length==4){
+                if (winner1==-1){
+                    winner1 = user.get(color_map.get(choice));
+                }
+                else if (winner2==-1){
+                    winner2 = user.get(color_map.get(choice));
+                }
+                else if(winner3==-1){
+                    winner3 = user.get(color_map.get(choice));
+                }
+                else{
+                    loser = user.get(color_map.get(choice));
+                    storeMatchResult();
+                }
+            }
         }
         else if (chance==1){
             let preElement;
@@ -415,6 +447,21 @@ async function move_the_goti(uservalue, chance){
             preElement.className = k.substring(0,k.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+            if (document.getElementById('done_${color_map.get(chance)}').children.length==4){
+                if (winner1==-1){
+                    winner1 = user.get(color_map.get(choice));
+                }
+                else if (winner2==-1){
+                    winner2 = user.get(color_map.get(choice));
+                }
+                else if(winner3==-1){
+                    winner3 = user.get(color_map.get(choice));
+                }
+                else{
+                    loser = user.get(color_map.get(choice));
+                    storeMatchResult();
+                }
+            }
         }
         else if (chance==2){
             let preElement;
@@ -449,6 +496,21 @@ async function move_the_goti(uservalue, chance){
             preElement.className = k.substring(0,k.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+            if (document.getElementById('done_${color_map.get(chance)}').children.length==4){
+                if (winner1==-1){
+                    winner1 = user.get(color_map.get(choice));
+                }
+                else if (winner2==-1){
+                    winner2 = user.get(color_map.get(choice));
+                }
+                else if(winner3==-1){
+                    winner3 = user.get(color_map.get(choice));
+                }
+                else{
+                    loser = user.get(color_map.get(choice));
+                    storeMatchResult();
+                }
+            }
         }
         else{
             let preElement;
@@ -483,6 +545,21 @@ async function move_the_goti(uservalue, chance){
             preElement.className = k.substring(0,k.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+            if (document.getElementById('done_${color_map.get(chance)}').children.length==4){
+                if (winner1==-1){
+                    winner1 = user.get(color_map.get(choice));
+                }
+                else if (winner2==-1){
+                    winner2 = user.get(color_map.get(choice));
+                }
+                else if(winner3==-1){
+                    winner3 = user.get(color_map.get(choice));
+                }
+                else{
+                    loser = user.get(color_map.get(choice));
+                    storeMatchResult();
+                }
+            }
         }
         goal_done = false;
     }
@@ -575,4 +652,19 @@ async function move_the_goti(uservalue, chance){
 }
 
 
-{/* <div id="id_blue_goti4" class="js_blue_goti choosableByClick blink"></div> */}
+function storeMatchResult() {
+    let thisMatchResult = {
+        "winner1":winner1,
+        "winner2":winner2,
+        "winner3":winner3,
+        "loser":loser
+    }
+    let k = localStorage.getItem("matchResults");
+    if (k){
+        k.push(thisMatchResult);
+        localStorage.setItem("matchResults",k);
+    }
+    else{
+        localStorage.setItem("matchResults",[]);
+    }
+}
