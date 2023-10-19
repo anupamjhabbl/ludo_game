@@ -221,8 +221,8 @@
 }
 
 .chance_goti{
-    width:35px;
-    height:35px;
+    width:40px;
+    height:40px;
     border-radius: 50%;
     border: 2px solid grey;
     margin:auto;
@@ -272,7 +272,7 @@
 }
 
 .done_one_box{
-    width:25%;
+    width:30%;
     border:2px solid rgb(152, 152, 152);
     border-collapse: collapse;
     height:180px;
@@ -315,8 +315,10 @@
 
 /* js css */
 .js_yellow_goti{
-    width:70%;
-    height:70%;
+    width:30px;
+    height:30px;
+    margin:auto;
+    margin-top:5px;
     border-radius:50%;
     background-color: yellow;
     box-shadow: 1px 1px 5px rgb(245, 245, 133);
@@ -327,8 +329,10 @@
 }
 
 .js_green_goti{
-    width:70%;
-    height:70%;
+    width:30px;
+    height:30px;
+    margin:auto;
+    margin-top:5px;
     border-radius:50%;
     background-color: green;
     box-shadow: 1px 1px 5px rgb(147, 245, 147);
@@ -336,11 +340,14 @@
     align-items:center;
     color:white;
     justify-content: center;
+    margin-top:5px'
 }
 
 .js_blue_goti{
-    width:70%;
-    height:70%;
+    width:30px;
+    height:30px;
+    margin:auto;
+    margin-top:5px;
     border-radius:50%;
     background-color: blue;
     box-shadow: 1px 1px 5px rgb(138, 181, 255);
@@ -348,38 +355,44 @@
     align-items:center;
     color:white;
     justify-content: center;
+    margin-top:5px'
 }
 
 .js_red_goti{
-    width:70%;
-    height:70%;
+    width:30px;
+    height:30px;
+    margin:auto;
+    margin-top:5px;
     border-radius:50%;
     background-color: red;
     display:flex;
     align-items:center;
     color:white;
     justify-content: center;
+    margin-top:5px'
 }
 
 @keyframes blink_the_goti {
     from{
-        width:50%;
-        height:50%;
+        margin-top:5px;
+        width:28px;
+        height:28px;
     }
     to {
-        width:85%;
-        height:85%;
+        margin-top:3px;
+        width:33px;
+        height:33px;
     }
   }
 
 .blink{
     animation-name: blink_the_goti;
-    animation-duration: 300ms;
+    animation-duration: 500ms;
     animation-iteration-count: infinite;
 }
 
 .goaled_goti{
-    width:90%;
+    width:50%;
     margin:auto;
     height:18%;
     margin-bottom:2px;
