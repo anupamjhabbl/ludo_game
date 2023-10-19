@@ -64,6 +64,15 @@ let firstValue = new Map([
 let haveUserChoosed = false;
 let userChoice = 0;
 let canRoll = true;
+let goal_done = false;
+
+let goalStatus =  new Map([
+    ["goal_green",[false, false, false, false]],
+    ["goal_red",[false, false, false, false]],
+    ["goal_yellow",[false, false, false, false]],
+    ["goal_blue",[false, false, false, false]]
+])
+
 
 // function for doing something onclick
 let doOnClick = (e) => {
@@ -146,13 +155,18 @@ roll_button.onclick = async () => {
 let blink_the_gotis = async (uservalue, chance) => {
     if (uservalue==6){
         for (let i=1;i<=4;i++){
-            active_status.set(`id_${color_map.get(chance)}_goti${i}`,1);
-            document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className += " blink";
+            if (gotis_position_array_map[color_map.get(chance)][i-1]==-2){
+
+            }
+            else{
+                active_status.set(`id_${color_map.get(chance)}_goti${i}`,1);
+                document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className += " blink";
+            }
         }
     }
     else{
         for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1 && gotis_position_array_map[color_map.get(chance)][i-1]==-2){
                 active_status.set(`id_${color_map.get(chance)}_goti${i}`,1);
                 document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className += " blink";
             }
@@ -163,14 +177,19 @@ let blink_the_gotis = async (uservalue, chance) => {
 
     if (uservalue==6){
         for (let i=1;i<=4;i++){
-            active_status.set(`id_${color_map.get(chance)}_goti${i}`,0);
-            let k = document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className;
-            document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className = k.substring(0,k.length-6);
+            if (gotis_position_array_map[color_map.get(chance)][i-1]==-2){
+
+            }
+            else{
+                active_status.set(`id_${color_map.get(chance)}_goti${i}`,0);
+                let k = document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className;
+                document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className = k.substring(0,k.length-6);
+            }
         }
     }
     else{
         for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1){
+            if (gotis_position_array_map[color_map.get(chance)][i-1]!=-1 && gotis_position_array_map[color_map.get(chance)][i-1]==-2){
                 active_status.set(`id_${color_map.get(chance)}_goti${i}`,0);
                 let k = document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className;
                 document.getElementById(`id_${color_map.get(chance)}_goti${i}`).className = k.substring(0,k.length-6);
@@ -209,7 +228,7 @@ let choosedGoti = () =>  new Promise((resolve, reject) => {
 })
 
 // function to move the goti
-const move_the_goti = async (uservalue, chance) => {
+async function move_the_goti(uservalue, chance){
     // when it is other than 6 and checking if any goti is out
     if (uservalue!=6 && !isAnyOut(chance)){
         return ;
@@ -230,56 +249,60 @@ const move_the_goti = async (uservalue, chance) => {
     else{
         let previous_value = gotis_position_array_map[color_map.get(chance)][k-1];
         m = gotis_position_array_map[color_map.get(chance)][k-1] + uservalue;
-        if (chance==0 && m>38 && previous_value<=38){
+        if (chance==0 && m>38 && (previous_value<=38 || goalStatus.get(`goal_${color_map.get(chance)}`)[k-1])){
             if (m==44){
-                console.log("final");
+                goal_done = true;
             }
             if (m>44){
-                console.log("fas gaya");
+                return ;
             }
             else{
                 m = m - 38;
                 goal_entered = true;
                 gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+                goalStatus.get(`goal_${color_map.get(chance)}`)[k-1] = true;
             }
         }
         else if(chance==1 && m>51){
             if (m==57){
-                console.log("final");
+                goal_done = true;
             }
             if (m>57){
-                console.log("fas gaya");
+                return ;
             }
             else{
                 m = m - 51;
                 goal_entered = true;
                 gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+                goalStatus.get(`goal_${color_map.get(chance)}`)[k-1] = true;
             }
         }
-        else if(chance==2 && m>12 && previous_value<=12){
+        else if(chance==2 && m>12 && (previous_value<=12 || goalStatus.get(`goal_${color_map.get(chance)}`)[k-1])){
             if (m==18){
-                console.log("final");
+                goal_done = true;
             }
             if (m>18){
-                console.log("fas gaya");
+                return ;
             }
             else{
                 m = m - 12;
                 goal_entered = true;
                 gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+                goalStatus.get(`goal_${color_map.get(chance)}`)[k-1] = true;
             }
         }
-        else if(chance==3 && m>25 && previous_value<=25){
+        else if(chance==3 && m>25 && (previous_value<=25 || goalStatus.get(`goal_${color_map.get(chance)}`)[k-1])){
             if (m==31){
-                console.log("final");
+                goal_done = true;
             }
             if (m>31){
-                console.log("fas gaya");
+                return ;
             }
             else{
                 m = m - 25;
                 goal_entered = true;
                 gotis_position_array_map[color_map.get(chance)][k-1] += uservalue;
+                goalStatus.get(`goal_${color_map.get(chance)}`)[k-1] = true;
             }
         }
         else if (m>52){
@@ -324,6 +347,145 @@ const move_the_goti = async (uservalue, chance) => {
             }
         }
     }
+    else if (goal_done==true){
+        if (chance==0){
+            let preElement;
+            if (prePosition==38){
+                preElement = document.getElementById(`g${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`g${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`g${prePosition}`).children[i];
+                }
+                document.getElementById(`g${prePosition}`).removeChild(preElement);
+            }
+            else{
+                prePosition = prePosition - 38;
+                preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length && document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i];
+                }
+                document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).removeChild(preElement);
+            }
+            let id_of_element = preElement.getAttribute("id");
+            let goti_no = id_of_element[id_of_element.length-1];
+            let color = id_of_element.substring(3,id_of_element.length-6);
+            gotis_position_array_map[color][goti_no-1] = -2;
+            let k = preElement.className;
+            preElement.className = k.substring(0,k.length-23);
+            preElement.className += ' goaled_goti';
+            document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+        }
+        else if (chance==1){
+            let preElement;
+            if (prePosition==51){
+                preElement = document.getElementById(`g${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`g${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`g${prePosition}`).children[i];
+                }
+                document.getElementById(`g${prePosition}`).removeChild(preElement);
+            }
+            else{
+                prePosition = prePosition - 51;
+                preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length && document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i];
+                }
+                document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).removeChild(preElement);
+            }
+            let id_of_element = preElement.getAttribute("id");
+            let goti_no = id_of_element[id_of_element.length-1];
+            let color = id_of_element.substring(3,id_of_element.length-6);
+            gotis_position_array_map[color][goti_no-1] = -2;
+            let k = preElement.className;
+            preElement.className = k.substring(0,k.length-23);
+            preElement.className += ' goaled_goti';
+            document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+        }
+        else if (chance==2){
+            let preElement;
+            if (prePosition==12){
+                preElement = document.getElementById(`g${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`g${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`g${prePosition}`).children[i];
+                }
+                document.getElementById(`g${prePosition}`).removeChild(preElement);
+            }
+            else{
+                prePosition = prePosition - 12;
+                preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length && document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i];
+                }
+                document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).removeChild(preElement);
+            }
+            let id_of_element = preElement.getAttribute("id");
+            let goti_no = id_of_element[id_of_element.length-1];
+            let color = id_of_element.substring(3,id_of_element.length-6);
+            gotis_position_array_map[color][goti_no-1] = -2;
+            let k = preElement.className;
+            preElement.className = k.substring(0,k.length-23);
+            preElement.className += ' goaled_goti';
+            document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+        }
+        else{
+            let preElement;
+            if (prePosition==25){
+                preElement = document.getElementById(`g${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`g${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`g${prePosition}`).children[i];
+                }
+                document.getElementById(`g${prePosition}`).removeChild(preElement);
+            }
+            else{
+                prePosition = prePosition - 25;
+                preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[0];
+                let i = 0;
+                if (document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length>1){
+                    while (i<document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children.length && document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i].innerHTML!=k){
+                        i++;
+                    }
+                    preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[i];
+                }
+                document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).removeChild(preElement);
+            }
+            let id_of_element = preElement.getAttribute("id");
+            let goti_no = id_of_element[id_of_element.length-1];
+            let color = id_of_element.substring(3,id_of_element.length-6);
+            gotis_position_array_map[color][goti_no-1] = -2;
+            let k = preElement.className;
+            preElement.className = k.substring(0,k.length-23);
+            preElement.className += ' goaled_goti';
+            document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
+        }
+        goal_done = false;
+    }
     else if(goal_entered==false){
         let preElement = document.getElementById(`g${prePosition}`).children[0];
         let i = 0;
@@ -365,15 +527,31 @@ const move_the_goti = async (uservalue, chance) => {
         }
     }
     else{
-        let preElement = document.getElementById(`g${prePosition}`).children[0];
+        let preElementBox;
+        if (chance==0 && prePosition>38){
+            preElementBox = document.getElementById(`${color_map.get(chance)}_goal${prePosition-38}`);
+        }
+        else if (chance==1 && prePosition>51){
+            preElementBox = document.getElementById(`${color_map.get(chance)}_goal${prePosition-51}`);
+        }
+        else if (chance==2 && prePosition>12){
+            preElementBox = document.getElementById(`${color_map.get(chance)}_goal${prePosition-12}`);
+        }
+        else if (chance==3 && prePosition>25){
+            preElementBox = document.getElementById(`${color_map.get(chance)}_goal${prePosition-25}`);
+        }
+        else{
+            preElementBox = document.getElementById(`g${prePosition}`);
+        }
+        let preElement = preElementBox.children[0];
         let i = 0;
-        if (document.getElementById(`g${prePosition}`).children.length>1){
-            while (i<document.getElementById(`g${prePosition}`).children.length && document.getElementById(`g${prePosition}`).children[i].innerHTML!=k){
+        if (preElementBox.children.length>1){
+            while (i<preElementBox.children.length && preElementBox.children[i].innerHTML!=k){
                 i++;
             }
-            preElement = document.getElementById(`g${prePosition}`).children[i];
+            preElement = preElementBox.children[i];
         }
-        document.getElementById(`g${prePosition}`).removeChild(preElement);
+        preElementBox.removeChild(preElement);
         if (document.getElementById(`${color_map.get(chance)}_goal${m}`).innerHTML != ''){
             if (document.getElementById(`${color_map.get(chance)}_goal${m}`).children[0].className == preElement.className){
                 document.getElementById(`${color_map.get(chance)}_goal${m}`).appendChild(preElement);
@@ -395,3 +573,6 @@ const move_the_goti = async (uservalue, chance) => {
         resolve("done");
     })
 }
+
+
+{/* <div id="id_blue_goti4" class="js_blue_goti choosableByClick blink"></div> */}

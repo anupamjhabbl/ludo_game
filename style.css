@@ -377,3 +377,10 @@
     animation-duration: 300ms;
     animation-iteration-count: infinite;
 }
+
+.goaled_goti{
+    width:90%;
+    margin:auto;
+    height:18%;
+    margin-bottom:2px;
+}
