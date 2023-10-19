@@ -74,12 +74,18 @@ let goalStatus =  new Map([
 ])
 
 let user1, user2, user3, user4;
+user1 = prompt("Enter the user who want red");
+user2 = prompt("Enter the user who want blue");
+user3 = prompt("Enter the user who want yellow");
+user4 = prompt("Enter the user who want green");
+
 let user = new Map([
     ["red",user1],
     ["blue",user2],
     ["yellow",user3],
     ["green",user4]
 ])
+
 let winner1, winner2, winner3, loser;
 winner1 = winner2 = winner3 = loser = -1;
 
@@ -660,11 +666,14 @@ function storeMatchResult() {
         "loser":loser
     }
     let k = localStorage.getItem("matchResults");
-    if (k){
-        k.push(thisMatchResult);
-        localStorage.setItem("matchResults",k);
+    if (k==null){
+        let value = new Array();
+        value.push(thisMatchResult);
+        localStorage.setItem("matchResults",JSON.stringify(value));
     }
     else{
-        localStorage.setItem("matchResults",[]);
+        k = JSON.parse(k);
+        k.push(thisMatchResult);
+        localStorage.setItem("matchResults",JSON.stringify(k));
     }
 }
