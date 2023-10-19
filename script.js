@@ -448,6 +448,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
+                    location.href='results.html';
                 }
             }
         }
@@ -498,6 +499,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
+                    location.href='results.html';
                 }
             }
         }
@@ -548,6 +550,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
+                    location.href='results.html';
                 }
             }
         }
@@ -598,6 +601,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
+                    location.href='results.html';
                 }
             }
         }
