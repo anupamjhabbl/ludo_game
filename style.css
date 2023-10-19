@@ -208,7 +208,7 @@
     width:300px;
     position:absolute;
     right:100px;
-    top:200px;
+    top:150px;
 }
 
 .chance{
@@ -315,8 +315,8 @@
 
 /* js css */
 .js_yellow_goti{
-    width:30px;
-    height:30px;
+    width:70%;
+    height:70%;
     margin:auto;
     margin-top:5px;
     border-radius:50%;
@@ -329,8 +329,8 @@
 }
 
 .js_green_goti{
-    width:30px;
-    height:30px;
+    width:70%;
+    height:70%;
     margin:auto;
     margin-top:5px;
     border-radius:50%;
@@ -344,8 +344,9 @@
 }
 
 .js_blue_goti{
-    width:30px;
-    height:30px;
+    width:70%;
+    height:70%;
+
     margin:auto;
     margin-top:5px;
     border-radius:50%;
@@ -359,8 +360,8 @@
 }
 
 .js_red_goti{
-    width:30px;
-    height:30px;
+    width:70%;
+    height:70%;
     margin:auto;
     margin-top:5px;
     border-radius:50%;
@@ -372,16 +373,23 @@
     margin-top:5px'
 }
 
+@media only screen and (max-width:500px){
+    .js_blue_goti, .js_green_goti, .js_red_goti, .js_yellow_goti{
+        font-size: xx-small;
+        margin-bottom:3px;
+    }
+}
+
 @keyframes blink_the_goti {
     from{
         margin-top:5px;
-        width:28px;
-        height:28px;
+        width:50%;
+        height:50%;
     }
     to {
         margin-top:3px;
-        width:33px;
-        height:33px;
+        width:80%;
+        height:80%;
     }
   }
 
@@ -413,6 +421,18 @@
     min-width:300px;
     background-color: aliceblue;
     box-shadow: 0 4px 10px rgba(0,0,0,.25);
+}
+
+@media only screen and (max-width:1000px){
+    .results{
+        width:80%;
+    }
+}
+
+@media only screen and (max-width:400px){
+    .results{
+        width:100%;
+    }
 }
 
 .result{
@@ -455,19 +475,27 @@
     margin-bottom:30px;
 }
 
-.back_button{
+.result_page_heading{
+    text-align:center;
+    color:black;
+    margin-bottom:30px;
+}
+
+.results_page_button{
     width:230px;
     height:55px;
     display:flex;
     justify-content: center;
     align-items: center;
     font-size: x-large;
-    font-weight: 600;
+    font-weight: 500;
     margin-top: 50px;
     box-shadow: 0 4px 10px rgba(0,0,0,.25);
+    display:block;
+    margin:auto;
 }
 
-.back_button a{
+.results_page_button a{
     text-decoration: none;
     color:black;
 }
