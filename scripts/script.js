@@ -447,8 +447,8 @@ async function move_the_goti(uservalue, chance){
             let goti_no = id_of_element[id_of_element.length-1];
             let color = id_of_element.substring(3,id_of_element.length-6);
             gotis_position_array_map[color][goti_no-1] = -2;
-            let k = preElement.className;
-            preElement.className = k.substring(0,k.length-23);
+            let classnameofpre = preElement.className;
+            preElement.className = classnameofpre.substring(0,classnameofpre.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
             if (document.getElementById(`done_${color_map.get(chance)}`).children.length==4){
@@ -498,8 +498,8 @@ async function move_the_goti(uservalue, chance){
             let goti_no = id_of_element[id_of_element.length-1];
             let color = id_of_element.substring(3,id_of_element.length-6);
             gotis_position_array_map[color][goti_no-1] = -2;
-            let k = preElement.className;
-            preElement.className = k.substring(0,k.length-23);
+            let classnameofpre = preElement.className;
+            preElement.className = classnameofpre.substring(0,classnameofpre.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
             if (document.getElementById(`done_${color_map.get(chance)}`).children.length==4){
@@ -549,8 +549,8 @@ async function move_the_goti(uservalue, chance){
             let goti_no = id_of_element[id_of_element.length-1];
             let color = id_of_element.substring(3,id_of_element.length-6);
             gotis_position_array_map[color][goti_no-1] = -2;
-            let k = preElement.className;
-            preElement.className = k.substring(0,k.length-23);
+            let classnameofpre = preElement.className;
+            preElement.className = classnameofpre.substring(0,classnameofpre.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
             if (document.getElementById(`done_${color_map.get(chance)}`).children.length==4){
@@ -600,8 +600,8 @@ async function move_the_goti(uservalue, chance){
             let goti_no = id_of_element[id_of_element.length-1];
             let color = id_of_element.substring(3,id_of_element.length-6);
             gotis_position_array_map[color][goti_no-1] = -2;
-            let k = preElement.className;
-            preElement.className = k.substring(0,k.length-23);
+            let classnameofpre = preElement.className;
+            preElement.className = classnameofpre.substring(0,classnameofpre.length-23);
             preElement.className += ' goaled_goti';
             document.getElementById(`done_${color_map.get(chance)}`).appendChild(preElement);
             if (document.getElementById(`done_${color_map.get(chance)}`).children.length==4){
