@@ -10,10 +10,10 @@ function elementProvider(winner1, winner2, winner3, loser){
     return element;
 }
 
-if (result==null){
+if (result==null){                     // if there is no result stored
 
 }
-else{
+else{                                 // if there is some result then show them
     result = JSON.parse(result);
     let maindiv = document.getElementById('results');
     for (let i=result.length-1;i>=0;i--){

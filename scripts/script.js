@@ -45,8 +45,10 @@ let gotis_position_array_map = {
     "blue":[-1,-1,-1,-1]
 }
 
+// map for stoting the active status of the gotis
 let active_status = new Map();
 
+// mapping colors with number
 const color_map = new Map([
     [0,"red"],
     [1,"blue"],
@@ -54,6 +56,7 @@ const color_map = new Map([
     [3,"green"]
 ])
 
+// stroing the first box position of different color goti
 let firstValue = new Map([
     ["red",40],
     ["blue",1],
@@ -61,11 +64,12 @@ let firstValue = new Map([
     ["yellow",14]
 ])
 
-let haveUserChoosed = false;
-let userChoice = 0;
-let canRoll = true;
-let goal_done = false;
+let haveUserChoosed = false;              // tracker to stop the other code to run until any of the goti is selected
+let userChoice = 0;                       // to store which goti user has selected
+let canRoll = true;                       // tracker to store that we can roll the dice or not
+let goal_done = false;                    // when one color enter into goal it becomes true
 
+// map to store which color which goti have already went in goal
 let goalStatus =  new Map([
     ["goal_green",[false, false, false, false]],
     ["goal_red",[false, false, false, false]],
@@ -73,12 +77,14 @@ let goalStatus =  new Map([
     ["goal_blue",[false, false, false, false]]
 ])
 
+// storing the name of users
 let user1, user2, user3, user4;
 user1 = prompt("Enter the user who want red");
 user2 = prompt("Enter the user who want blue");
 user3 = prompt("Enter the user who want yellow");
 user4 = prompt("Enter the user who want green");
 
+// map to store color taken by username
 let user = new Map([
     ["red",user1],
     ["blue",user2],
@@ -86,6 +92,7 @@ let user = new Map([
     ["green",user4]
 ])
 
+// map to store which user have goaled all four
 let goaled_all_four = new Map([
     [user1,-1],
     [user2,-1],
@@ -93,11 +100,12 @@ let goaled_all_four = new Map([
     [user4,-1]
 ])
 
+// to keep the track of winners
 let winner1, winner2, winner3, loser;
 winner1 = winner2 = winner3 = loser = -1;
 
 
-// function for doing something onclick
+// function for doing selecting one of the blinking goti on click
 let doOnClick = (e) => {
     userChoice = e.target.innerHTML;
     if (!(userChoice=="1" || userChoice=="2" || userChoice=="3" || userChoice=="4")){
@@ -105,6 +113,7 @@ let doOnClick = (e) => {
     }
     haveUserChoosed = true;
 }
+
 // making gotis clickable
 let all_gotis = document.getElementsByClassName('choosableByClick');
 for (let i=0;i<all_gotis.length;i++){
@@ -113,7 +122,7 @@ for (let i=0;i<all_gotis.length;i++){
     }
 }
 
-// rshowing the chance function
+// changing the chance and showing whose chance it is
 let change_the_chance = (chance) => {
     let chance_goti = document.getElementById('chance_goti');
     switch(chance){
@@ -144,7 +153,7 @@ let change_the_chance = (chance) => {
     }
 }
 
-// setting first chance
+// setting first chance randomly
 let chance = Math.floor(Math.random()*4);
 change_the_chance(chance);
 
@@ -154,24 +163,26 @@ let roll_dice = async () => {
         return ;
     }
     else{
-        canRoll = false;
+        canRoll = false;                  // making canRoll false until user don't make a move so that no one call roll the dice
         let dice_value = document.getElementById('dice_value');
         let uservalue = Math.floor(Math.random()*6)+1;
         dice_value.innerHTML = uservalue;
 
+        // calling blink_the_goti function that will return a promise and before that it will add class blink to needed goti so that they can blink
         await blink_the_gotis(uservalue, chance);
 
-        if (uservalue!=6){
+        if (uservalue!=6){                 // changing the chance value if it is not 6
             chance = (chance+1)%4;
             change_the_chance(chance);
-        }
-        else{
+        } 
+        else{                              // not changing th chance value if it is 6
             change_the_chance(chance);
         }
-        canRoll = true;
+        canRoll = true;                    // since user have moved his goti so making canRoll true
     }
 }
 
+// making roll dice on click of "ENTER"
 let roll_button = document.getElementById('roll_the_dice');
 roll_button.onclick = roll_dice;
 window.addEventListener("keypress",function(e){
@@ -182,7 +193,7 @@ window.addEventListener("keypress",function(e){
 })
 
 
-
+// function to blink the neede gotis and then call the function move_the_goti which will move the goti according to user selceted goti and dice value
 async function blink_the_gotis(uservalue, chance){
     let counter = 0;
     if (uservalue==6){
@@ -210,6 +221,7 @@ async function blink_the_gotis(uservalue, chance){
         return ;
     }
 
+    // calling move the goti which will resolve after user move the goti
     await move_the_goti(uservalue, chance);
 
     if (uservalue==6){
@@ -240,7 +252,7 @@ async function blink_the_gotis(uservalue, chance){
 
 }
 
-// isAnyOut
+// function to check that is there any goti out 
 function isAnyOut(chance){
     let isAnyOutv = gotis_position_array_map[color_map.get(chance)];
     for (let i=0;i<isAnyOutv.length;i++){
@@ -251,7 +263,7 @@ function isAnyOut(chance){
     return 0;
 }
 
-// a function returning promise
+// a function returning promise and it will stop the other js code to run until the user selects a goti and make the move
 let choosedGoti = () =>  new Promise((resolve, reject) => {
     const check = () => {
         if (haveUserChoosed){
@@ -264,28 +276,6 @@ let choosedGoti = () =>  new Promise((resolve, reject) => {
     check();
 })
 
-// check other goti is availaible
-function checkAvailaible(uservalue, chance){
-    let counter = 0;
-    if (uservalue==6){
-        for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]==-2){
-
-            }
-            else{
-                counter += 1;
-            }
-        }
-    }
-    else{
-        for (let i=1;i<=4;i++){
-            if (gotis_position_array_map[color_map.get(chance)][i-1]>=0){
-                counter += 1;
-            }
-        }
-    }
-    return counter;
-}
 
 // find the Loser
 function findTheLoser() {
@@ -305,26 +295,29 @@ function findTheLoser() {
 
 // function to move the goti
 async function move_the_goti(uservalue, chance){
-    // when it is other than 6 and checking if any goti is out
+    // when it is other than 6 and checking if any goti is out, if no then just return from here and give the chance to next user
     if (uservalue!=6 && !isAnyOut(chance)){
         return ;
     }
 
-    let k = await choosedGoti();
-    haveUserChoosed = false;
+    let k = await choosedGoti();         // waiting for the user select a goti that he want to move
+    haveUserChoosed = false;             // dubara se usko false kardo so that next move wale ke liye false rahe
     let m;
-    while(!active_status.get(`id_${color_map.get(chance)}_goti${k}`)){
+    while(!active_status.get(`id_${color_map.get(chance)}_goti${k}`)){      // looping until user don't select a valid button
         k = await choosedGoti();
     }
 
+    // getting the position of the box where the selected goti is cureently at
     let prePosition = gotis_position_array_map[color_map.get(chance)][k-1];
     let goal_entered = false;
-    if (prePosition==-1 && uservalue==6){
+    if (prePosition==-1 && uservalue==6){          // if goti is inside the home and uservalue is 6
         gotis_position_array_map[color_map.get(chance)][k-1] = firstValue.get(color_map.get(chance));
     }
     else{
         let previous_value = gotis_position_array_map[color_map.get(chance)][k-1];
-        m = gotis_position_array_map[color_map.get(chance)][k-1] + uservalue;
+        m = gotis_position_array_map[color_map.get(chance)][k-1] + uservalue;      // getting the position of the box where it will go
+        
+        // for different different color handling the case if goti is going to be goaled, goti is trying to go beyond or goti is trying to go on some box
         if (chance==0 && m>38 && (previous_value<=38 || goalStatus.get(`goal_${color_map.get(chance)}`)[k-1])){
             if (m==44){
                 goal_done = true;
@@ -389,18 +382,19 @@ async function move_the_goti(uservalue, chance){
             gotis_position_array_map[color_map.get(chance)][k-1] = m;
         }
     }
-    if (prePosition==-1){
+    if (prePosition==-1){      // if preposition is -1 then preElement will be taken differently
         let gotis = document.getElementsByClassName(`${color_map.get(chance)}_goti`);
         let preElement = gotis[k-1].children[0];
-        gotis[k-1].innerHTML = '';
-        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){
+        gotis[k-1].innerHTML = '';              // making the box clean where it was prior
+        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){   // if the box where it is going is empty
+            // if the goti there is of same color
             if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className){
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
                     doOnClick(e);
                 }
             }
-            else{
+            else{      // if the goti is of different color      
                 let gotis_in_next = document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children;
                 for (let i=0;i<gotis_in_next.length;i++){
                     let id_of_element = gotis_in_next[i].getAttribute("id");
@@ -416,17 +410,17 @@ async function move_the_goti(uservalue, chance){
                 }
             }
         }
-        else{
+        else{         // if the box where we are going to store has nothing
             document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
             document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
                 doOnClick(e);
             }
         }
     }
-    else if (goal_done==true){
+    else if (goal_done==true){            // if the element is goaled
         if (chance==0){
             let preElement;
-            if (prePosition==38){
+            if (prePosition==38){         // if it is previously out of goal boxes
                 preElement = document.getElementById(`g${prePosition}`).children[0];
                 let i = 0;
                 if (document.getElementById(`g${prePosition}`).children.length>1){
@@ -437,7 +431,7 @@ async function move_the_goti(uservalue, chance){
                 }
                 document.getElementById(`g${prePosition}`).removeChild(preElement);
             }
-            else{
+            else{            // if it is previously in the goal box
                 prePosition = prePosition - 38;
                 preElement = document.getElementById(`${color_map.get(chance)}_goal${prePosition}`).children[0];
                 let i = 0;
@@ -471,7 +465,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
-                    location.href='results.html';
+                    location.href='results.html';            // redirecting to page which contains result
                 }
             }
         }
@@ -522,7 +516,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
-                    location.href='results.html';
+                    location.href='results.html';    // redirecting to page which contains result
                 }
             }
         }
@@ -573,7 +567,7 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
-                    location.href='results.html';
+                    location.href='results.html';     // redirecting to page which contains result
                 }
             }
         }
@@ -624,13 +618,13 @@ async function move_the_goti(uservalue, chance){
                     goaled_all_four.set(winner3,2);
                     loser = findTheLoser();
                     storeMatchResult();
-                    location.href='results.html';
+                    location.href='results.html';      // redirecting to page which contains result
                 }
             }
         }
         goal_done = false;
     }
-    else if(goal_entered==false){
+    else if(goal_entered==false){          // if goti is not already in goal box and now going
         let preElement = document.getElementById(`g${prePosition}`).children[0];
         let i = 0;
         if (document.getElementById(`g${prePosition}`).children.length>1){
@@ -670,7 +664,7 @@ async function move_the_goti(uservalue, chance){
             }
         }
     }
-    else{
+    else{      // going in goal box ans previously was not also in goal boxes
         let preElementBox;
         if (chance==0 && prePosition>38){
             preElementBox = document.getElementById(`${color_map.get(chance)}_goal${prePosition-38}`);
@@ -718,7 +712,7 @@ async function move_the_goti(uservalue, chance){
     })
 }
 
-
+// storing the match result
 function storeMatchResult() {
     let thisMatchResult = {
         "winner1":winner1,
