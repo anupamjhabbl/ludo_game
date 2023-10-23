@@ -45,6 +45,9 @@ let gotis_position_array_map = {
     "blue":[-1,-1,-1,-1]
 }
 
+// storing the place value of boxes with star
+let star_boxes = new Set([22,27,14,9,35,40,1,48]);
+
 // map for stoting the active status of the gotis
 let active_status = new Map();
 
@@ -386,9 +389,9 @@ async function move_the_goti(uservalue, chance){
         let gotis = document.getElementsByClassName(`${color_map.get(chance)}_goti`);
         let preElement = gotis[k-1].children[0];
         gotis[k-1].innerHTML = '';              // making the box clean where it was prior
-        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){   // if the box where it is going is empty
-            // if the goti there is of same color
-            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className){
+        if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){   // if the box where it is going is not empty
+            // if the goti there is of same color or box is a star box
+            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className || star_boxes.has(gotis_position_array_map[color_map.get(chance)][k-1])){
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
                     doOnClick(e);
@@ -624,7 +627,7 @@ async function move_the_goti(uservalue, chance){
         }
         goal_done = false;
     }
-    else if(goal_entered==false){          // if goti is not already in goal box and now going
+    else if(goal_entered==false){          // if goti is not already in goal box and also not going this time
         let preElement = document.getElementById(`g${prePosition}`).children[0];
         let i = 0;
         if (document.getElementById(`g${prePosition}`).children.length>1){
@@ -635,7 +638,7 @@ async function move_the_goti(uservalue, chance){
         }
         document.getElementById(`g${prePosition}`).removeChild(preElement);
         if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).innerHTML != ''){
-            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className){
+            if (document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).children[0].className == preElement.className || star_boxes.has(gotis_position_array_map[color_map.get(chance)][k-1])){
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).appendChild(preElement);
                 document.getElementById(`g${ gotis_position_array_map[color_map.get(chance)][k-1]}`).onclick = (e) => {
                     doOnClick(e);
