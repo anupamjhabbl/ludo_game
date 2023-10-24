@@ -107,12 +107,40 @@ let goaled_all_four = new Map([
 let winner1, winner2, winner3, loser;
 winner1 = winner2 = winner3 = loser = -1;
 
+let chance = Math.floor(Math.random()*4);
+
 
 // function for doing selecting one of the blinking goti on click
 let doOnClick = (e) => {
-    userChoice = e.target.innerHTML;
-    if (!(userChoice=="1" || userChoice=="2" || userChoice=="3" || userChoice=="4")){
-        userChoice = e.target.children[0].innerHTML;
+    if (e.target.innerHTML!="1" && e.target.innerHTML!="2" && e.target.innerHTML!="3" && e.target.innerHTML!="4"){
+        console.log("1");
+        if (e.target.children.length>1){
+            console.log("11");
+            let i = 0;
+            while (i<e.target.children.length && e.target.children[i].className.indexOf(`js_${color_map.get(chance)}_goti`)==-1){
+                i++;
+            }
+            userChoice = e.target.children[i].innerHTML;
+        }
+        else{
+            console.log("12");
+            userChoice = e.target.children[0].innerHTML;
+        }
+    }
+    else{
+        console.log("2");
+        if (e.target.parentElement.children.length>1){
+            console.log("21");
+            let i = 0;
+            while (i<e.target.parentElement.children.length && e.target.parentElement.children[i].className.indexOf(`js_${color_map.get(chance)}_goti`)==-1){
+                i++;
+            }
+            userChoice = e.target.parentElement.children[i].innerHTML;
+        }
+        else{
+            console.log("22");
+            userChoice = e.target.parentElement.children[0].innerHTML;
+        }
     }
     haveUserChoosed = true;
 }
@@ -157,7 +185,6 @@ let change_the_chance = (chance) => {
 }
 
 // setting first chance randomly
-let chance = Math.floor(Math.random()*4);
 change_the_chance(chance);
 
 // rolling the dice
